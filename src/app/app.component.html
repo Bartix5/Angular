@@ -1,3 +1,55 @@
-<h1> Hello world</h1>
-<h2>To dobry angular iKs De</h2>
-<h1> Kurs start</h1>
+<div class="container">
+  <nav class="row">
+    <div class="nav-wrapper">
+      <span class="brand-logo center">{{ title | uppercase }}</span>
+    </div>
+  </nav>
+
+  <div class="row">
+    <button class="btn col s2 offset-s10">Dodaj zadanie</button>
+    <button class="btn col s2 offset-s10">Zakończ</button>
+  </div>
+
+  <div class="row">
+    <input class="col s8"
+           type="text"
+           placeholder="Dodaj zadanie i datę wykonania" />
+    <input class="col s2 disabled" type="date" />
+    <button class="btn-floating">+</button>
+  </div>
+
+  <ul class="collection">
+    <li class="collection-item row" *ngFor="let t of tasks">
+      <span class="col s10">{{ t.name}} - {{t.deadline | date: 'dd.MM EEEE':'':'pl'}}</span>
+      <div class="col s2 right-align">
+        <button class="btn-floating btn-small red">
+          <i class="material-icons">remove</i>
+        </button>
+        <button class="btn-floating btn-small green ml-5">
+          <i class="material-icons">check</i>
+        </button>
+      </div>
+    </li>
+    <li class="collection-item row">
+      <span class="col done">Sprzątanie kuwet</span>
+    </li>
+  </ul>
+
+  <h1>Dzisiaj brak zadań :-)</h1>
+  <h2>{{ zmienna }}</h2>
+  <button class="btn blue" (click)="add()">Dodaj</button>
+  <button class="btn red">Wyczyść</button>
+  <div class="input-field col s6">
+    <i class="material-icons prefix">account_circle</i>
+    <input id="icon_prefix" type="text" class="validate">
+    <label for="icon_prefix">First Name</label>
+  </div>
+  <button class="btn green">Zapisz</button>
+  <footer class="page-footer mt-5">
+    <div class="footer-copyright">
+      <div class="container">
+        {{ getDate() | date: 'yyyy.MM.dd H:mm'}}  {{ getFooter() }}
+      </div>
+    </div>
+  </footer>
+</div>
