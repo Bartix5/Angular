@@ -5,13 +5,14 @@ import { AppComponent } from './app.component';
 import localePL from '@angular/common/locales/pl';
 import { registerLocaleData } from '@angular/common';
 registerLocaleData(localePL);
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

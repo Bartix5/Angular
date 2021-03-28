@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { task } from './task';
 
+import localePL from '@angular/common/locales/pl';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePL);
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  taskName = '';
+  taskDate = '';
   zmienna = 0;
-
   title = 'apk-web';
 
   getFooter(): string {
@@ -28,7 +33,7 @@ export class AppComponent {
   tasks: task[] = [
     {
       name: 'Siłownia',
-      deadline: '2020-01-02',
+      deadline: '2020-03-02',
       done: false,
     },
     {
@@ -38,4 +43,19 @@ export class AppComponent {
     },
   ];
 
+  clearTask() {
+    this.tasks = [];
+  }
+
+
+  createTask() {
+    const task: task = {
+      name: this.taskName,
+      deadline: this.taskDate,
+      done: false,
+    };
+    this.tasks.push(task);
+    this.taskName = '';
+    this.taskDate = '';
+  }
 }
