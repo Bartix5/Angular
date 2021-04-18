@@ -15,6 +15,7 @@ export class AppComponent {
   taskDate = '';
   zmienna = 0;
   title = 'apk-web';
+  editMode = false;
 
   getFooter(): string {
     if (this.zmienna == 1) { return "Zmienna jest " + this.zmienna }
@@ -39,6 +40,11 @@ export class AppComponent {
     {
       name: 'nauka Angulara',
       deadline: '2020-03-03',
+      done: true,
+    },
+    {
+      name: 'Robienie obiadu',
+      deadline: '2020-04-24',
       done: false,
     },
   ];
@@ -58,4 +64,16 @@ export class AppComponent {
     this.taskName = '';
     this.taskDate = '';
   }
+  switchEditMode() {
+    this.editMode = !this.editMode
+  }
+
+  markTaskAsDone(task: task) {
+    task.done = true;
+  }
+
+  deleteTask(task: task) {
+    this.tasks = this.tasks.filter(e => e !== task);//Przefiltrowanie listy bez elementu do usuniecia
+  }
+
 }

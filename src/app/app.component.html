@@ -6,11 +6,16 @@
   </nav>
 
   <div class="row">
-    <button class="btn col s2 offset-s10">Dodaj zadanie</button>
-    <button class="btn col s2 offset-s10">Zakończ</button>
+    <ng-container *ngIf="editMode; then editON; else editOFF"></ng-container>
+    <ng-template #editOFF>
+    <button class="btn col s2 offset-s10" (click)="switchEditMode()">Dodaj zadanie</button>
+    </ng-template>
+    <ng-template #editON>
+    <button class="btn col s2 offset-s10" (click)="switchEditMode()">Zakończ</button>
+    </ng-template>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="editMode">
     <input class="col s8" type="text"
            placeholder="Dodaj zadanie i datę wykonania"
            [(ngModel)]="taskName"
@@ -24,24 +29,30 @@
     +</button>
   </div>
 
-  <ul class="collection">
-    <li class="collection-item row" *ngFor="let t of tasks; let i = index">
+  <ul class="collection" *ngIf="tasks.length > 0; else noTasks">
+    <ng-container *ngFor="let t of tasks; let i = index" [ngSwitch]="t.done">
+    <li class="collection-item row" *ngSwitchCase="false">
       <span class="col s10"> {{i+1}} {{ t.name}} - {{t.deadline | date: 'dd.MM EEEE':'':'pl'}}</span>
       <div class="col s2 right-align">
-        <button class="btn-floating btn-small red">
+        <button class="btn-floating btn-small red" (click)="deleteTask(t)">
           <i class="material-icons">remove</i>
         </button>
-        <button class="btn-floating btn-small green ml-5">
+        <button class="btn-floating btn-small green ml-5" (click)="markTaskAsDone(t)">
           <i class="material-icons">check</i>
         </button>
       </div>
     </li>
-    <li class="collection-item row">
-      <span class="col done">Sprzątanie kuwet</span>
+    <li class="collection-item row" *ngSwitchCase="true">
+      <span class="col done">{{t.name}}</span>
     </li>
+    </ng-container>
   </ul>
 
-  <h1>Dzisiaj brak zadań :-)</h1>
+  <ng-template #noTasks>
+  <h1> Dzisiaj brak zadań </h1>
+  </ng-template>
+
+
   <h2>{{ zmienna }}</h2>
   <button class="btn blue" (click)="add()">Dodaj</button>
   <button class="btn red" (click)="clearTask()"
